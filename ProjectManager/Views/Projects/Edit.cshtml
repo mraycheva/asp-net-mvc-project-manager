@@ -1,0 +1,50 @@
+﻿@model ProjectManager.Models.Projects.EditM
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<!-- Форма за попълване (добавяне/редактиране) на информация за проект. -->
+<form action="/Projects/Edit" method="post">
+    @Html.HiddenFor(m => m.Id)
+    <fieldset>
+        <legend>Project record</legend>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Name)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Name)
+                    @Html.ValidationMessageFor(m => m.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Description)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Description)
+                    @Html.ValidationMessageFor(m => m.Description)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Client)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Client)
+                    @Html.ValidationMessageFor(m => m.Client)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="float:right">
+                        <input type="submit" value="Save" />
+                        <a href="Projects" style="text-decoration:none; color:blue">Back</a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

@@ -1,0 +1,61 @@
+﻿@{
+    User loggedUser = (User)Session["loggedUser"]; 
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <table style="width:100%">
+            <!-- Header with title, greeting and Login/Logout hyperlink -->
+            <tr>
+                <td>
+                    <h1 style="display:inline">Project Manager</h1>
+                    <div style="float:right">
+                        Hello, @(loggedUser == null ? "Anonymous" : loggedUser.Username)
+                        &nbsp;&nbsp;&nbsp;
+                        .::
+                        <!-- Login/Logout hyperlink -->
+                        @if (loggedUser == null)
+                        {
+                            <a href="/Home/Login" style="text-decoration:none; color:blue;">Login</a>
+                        }
+                        else
+                        {
+                            <a href="/Home/Logout" style="text-decoration:none; color:blue;">Logout</a>
+                        }
+                        ::.
+                    </div>
+                </td>
+            </tr>
+            <!-- Menu with 3 options: Home, Users, Projects -->
+            <tr>
+                <td>
+                    <ul style="list-style:none">
+                        <li style="float:left; margin:0 10px">
+                            <a style="text-decoration:none; color:blue" href="/Home/Index">Home</a>
+                        </li>
+                        <li style="float:left; margin:0 10px">
+                            <a style="text-decoration:none; color:blue" href="/Users/Index">Users</a>
+                        </li>
+                        <li style="float:left ; margin:0 10px">
+                            <a style="text-decoration:none; color:blue" href="/Projects/Index">Projects</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <!-- Contets -->
+            <tr>
+                <td>
+                    @RenderBody()
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

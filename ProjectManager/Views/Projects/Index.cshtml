@@ -1,0 +1,72 @@
+﻿@model ProjectManager.Models.Projects.IndexM
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<div>
+    <!-- Filter form -->
+    <form action="/Projects/Index" method="get">
+        <input type="hidden" name="ItemsPerPage" value="@Model.ItemsPerPage" />
+
+        Name: <input type="text" name="Name" value="@Model.Name" />
+
+        Description: <input type="text" name="Description" value="@Model.Description"/>
+
+        Client: <input type="text" name="Client" value="@Model.Client" />
+       
+        <input type="submit" value="Filter"/>
+    </form>
+</div>
+
+<!-- Create hyperlink -->
+<a href="/Projects/Edit">Create new record</a>
+
+<!-- Projects -->
+<table>
+    <!-- Header -->
+    <tr>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Client</td>
+    </tr>
+    <!-- Contents -->
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Description</td>
+            <td>@item.Client</td>
+            <td>
+                <a href="/Projects/Edit?id=@item.Id">edit</a>
+
+                <a href="/Projects/Delete?id=@item.Id" onclick="return confirm('Delete item?')">delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<!-- Page navigation hyperlinks -->
+@for (int i = 0; i < Model.PagesCount; i++)
+{
+    <a style="margin:0 10px" href="/Projects/Index?Name=@(Model.Name)&Description=@(Model.Description)&Client=@(Model.Client)&ItemsPerPage=@(Model.ItemsPerPage)&Page=@(i+1)">@(i + 1)</a>
+}
+
+<!-- Drop-down list for items per page -->
+<select id="ddlItemsPerPage" onchange="ddlItemsPerPage_OnChange()">
+    <option value="2" @(Model.ItemsPerPage == 2 ? "selected" : "")>2</option>
+    <option value="5" @(Model.ItemsPerPage == 5 ? "selected" : "")>5</option>
+    <option value="10" @(Model.ItemsPerPage == 10 ? "selected" : "")>10</option>
+</select>
+
+<!-- JavaScript for changing the preference for items per page -->
+<script>
+    function ddlItemsPerPage_OnChange() {
+        var ddlItemsPerPage = document.getElementById("ddlItemsPerPage");
+        var itemsPerPage = ddlItemsPerPage.options[ddlItemsPerPage.selectedIndex].value;
+        
+        window.location.href = "/Projects/Index?Name=@(Model.Name)&\
+            Description=@(Model.Description)&Client=@(Model.Client)&\
+            ItemsPerPage=" + itemsPerPage + " &Page=1";
+    }
+</script>

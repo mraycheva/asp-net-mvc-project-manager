@@ -1,0 +1,64 @@
+﻿@model ProjectManager.Models.Users.EditM
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<!-- Форма за попълване (добавяне/редактиране) на информация за потребител. -->
+<form action="/Users/Edit" method="post">
+    @Html.HiddenFor(m => m.Id)
+
+    <fieldset>
+        <legend>User record</legend>
+        <!-- Таблица за данните на потребителя с 5 реда:
+            - 4 за характеристиките на потребителя,
+            - 1 за бутон Save и хипервръзка Back. -->
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Username)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.Username)
+                    @Html.ValidationMessageFor(m => m.Username)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.Password)
+                </td>
+                <td>
+                    @Html.PasswordFor(m => m.Password)
+                    @Html.ValidationMessageFor(m => m.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.FirstName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.FirstName)
+                    @Html.ValidationMessageFor(m => m.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(m => m.LastName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => m.LastName)
+                    @Html.ValidationMessageFor(m => m.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div style="float:right">
+                        <input type="submit" value="Save" />
+
+                        <a href="Users" style="text-decoration:none; color:blue">Back</a>
+                        </div>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>
